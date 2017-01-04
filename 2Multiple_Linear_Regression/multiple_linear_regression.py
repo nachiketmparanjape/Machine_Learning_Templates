@@ -39,3 +39,36 @@ regressor.fit(X_train, y_train)
 
 # Predicting the Test set results
 y_pred = regressor.predict(X_test)
+
+#Model optimization using backward elimination
+import statsmodels.formula.api as sm
+#Statsmodel does not include the intercept constant, so we add a '1' column as x0 for that coeff
+X = np.append(values = X, arr = np.ones((50,1)).astype(int), axis = 1)
+
+X_opt = X[:,[0,1,2,3,4,5]]
+
+#Fit all the variables STEP 2
+regressor_OLS = sm.OLS(endog= y, exog= X_opt).fit()
+
+#Predictor with highest p-values STEP 3
+regressor_OLS.summary()
+
+#Remove index 2
+X_opt = X[:,[0,1,3,4,5]]
+regressor_OLS = sm.OLS(endog= y, exog= X_opt).fit()
+regressor_OLS.summary()
+
+#Remove index 1
+X_opt = X[:,[0,3,4,5]]
+regressor_OLS = sm.OLS(endog= y, exog= X_opt).fit()
+regressor_OLS.summary()
+
+#Remove index 4
+X_opt = X[:,[0,3,5]]
+regressor_OLS = sm.OLS(endog= y, exog= X_opt).fit()
+regressor_OLS.summary()
+
+#Remove index 5
+X_opt = X[:,[0,3]]
+regressor_OLS = sm.OLS(endog= y, exog= X_opt).fit()
+regressor_OLS.summary()

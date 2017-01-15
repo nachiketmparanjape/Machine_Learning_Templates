@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import math
+import random
 
 #Import the dataset
 dataset = pd.read_csv("Ads_CTR_Optimisation.csv")
@@ -35,11 +35,17 @@ for n in range(0, N):
     
     #Append corresponding ad to ads_selected
     ads_selected.append(ad)
-    #Update number of selections for the corresponding ad
-    numbers_of_selections[ad] += 1
-    #Update sums of reward (use the god dataset here)
+    
+     #Update sums of reward (use the god dataset here)
     reward = np.float64(dataset.values[n,ad])
-    sums_of_rewards[ad] += reward
+    
+    #Update number of rewards for the corresponding ad
+    if reward == 1:
+        number_of_rewards_1[ad] += 1
+    else:
+        number_of_rewards_0[ad] += 1
+   
+    
     total_reward += reward
     
 # Visualising the results

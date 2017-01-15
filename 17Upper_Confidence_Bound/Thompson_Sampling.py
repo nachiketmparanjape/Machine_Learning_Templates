@@ -14,29 +14,23 @@ d = 10 #Number of ads
 ads_selected = []
 
 #Number of times the ad i got reward 1 for up to round n
-number_of_rewards_1 = [0] * d
+number_of_rewards_0 = [0] * d
 
 #Number of times the ad i got reward 0 for up to round n
-number_of_rewards_2 = [0] * d
+number_of_rewards_1 = [0] * d
 
 total_reward = 0
 
 for n in range(0, N):
     ad = 0
-    max_upper_bound = 0
+    max_random = 0
     
     for i in range(0, d):
-        if (numbers_of_selections[i] > 0):
-            #Average reward of the ad i up to n
-            average_reward = (sums_of_rewards[i] / numbers_of_selections[i])
-            delta_i = math.sqrt(3/2 * math.log(n + 1) / numbers_of_selections[i])
-            upper_bound = average_reward + delta_i
-            
-        else:
-            upper_bound = 1e4000 #This loop is introduced to assign values for first 10 values
-            #upper_bound = np.float64(upper_bound)                   
-        if upper_bound > max_upper_bound:
-            max_upper_bound = upper_bound
+        
+        random_beta = random.betavariate(numbers_of_rewards_1[i] + 1, number_of_rewards_0[i] + 1)
+               
+        if random_beta > max_random:
+            max_random = random_beta
             ad = i
     
     #Append corresponding ad to ads_selected

@@ -7,6 +7,9 @@ dataset = pd.read_csv("Data.csv")
 X = dataset.iloc[:,:-1].values
 y = dataset.iloc[:,3].values
 
+#Data Cleaning
+loansData['Column'] = map(lambda x: int(x[0:3]), loansData['Column'])
+
 #Missing Data
 """from sklearn.preprocessing import Imputer
 imputer = Imputer(missing_values= 'NaN', strategy = "mean", axis = 0)

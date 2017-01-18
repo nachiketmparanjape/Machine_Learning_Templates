@@ -27,7 +27,7 @@ for n in range(0, N):
     
     for i in range(0, d):
         
-        random_beta = random.betavariate(numbers_of_rewards_1[i] + 1, number_of_rewards_0[i] + 1)
+        random_beta = random.betavariate(number_of_rewards_1[i] + 1, number_of_rewards_0[i] + 1)
                
         if random_beta > max_random:
             max_random = random_beta
